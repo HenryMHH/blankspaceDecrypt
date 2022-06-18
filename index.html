@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			label {
+				font-size: 1.5rem;
+			}
+			input {
+				padding: 10px;
+				font-size: 1.5rem;
+				width: 450px;
+			}
+
+			#output {
+				margin-top: 2rem;
+				font-size: 1.5rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div>
+			<label for="">輸入訂單客製編號: </label>
+			<input type="text" id="custom_tag_input" />
+		</div>
+		<div id="output"></div>
+
+		<script>
+			document.getElementById('custom_tag_input').oninput = function (e) {
+				const v = e.target.value
+				if (v) {
+					try {
+						const decodedString = decodeURIComponent(escape(atob(v)))
+						const result = decodedString.split(' ')[0]
+						const order_date = decodedString.split(' ')[1]
+						let deviceString = `安卓:${result[0]}/蘋果:${result[1]}/微軟:${result[2]}`
+
+						document.getElementById('output').innerHTML = '用戶載具: ' + deviceString + '<br/>' + '訂單日期: ' + order_date
+					} catch (error) {
+						document.getElementById('output').innerHTML = '代碼有誤，請重新複製貼上'
+					}
+				}
+			}
+		</script>
+	</body>
+</html>
